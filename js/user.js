@@ -112,6 +112,7 @@ function updateUIOnUserLogin() {
 
   $allStoriesList.show();
   $("i").show();
+  $(".account-forms-container").hide();
   // $navMyStories.show();
   // $navSubmit.show();
   // $navFavorites.show();

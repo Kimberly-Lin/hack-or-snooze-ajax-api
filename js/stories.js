@@ -50,6 +50,7 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+  if (currentUser) $("i").show();
 }
 
 /** Gets data from story submit form and adds new story to the page*/
@@ -77,3 +78,15 @@ async function addNewStoryToPage(evt) {
 }
 
 $addStoryForm.on("submit", addNewStoryToPage);
+
+/**Get story instance from storyId */
+function getStoryFromStoryId(storyId) {
+  // Loop through storyList
+  // For each object in that loop, compare story Ids
+  // If true, return story
+  for (let story of storyList.stories) {
+      if (story.storyId === storyId) {
+          return story;
+      }
+  }
+}

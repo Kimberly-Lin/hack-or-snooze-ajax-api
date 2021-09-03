@@ -2,8 +2,7 @@
 
 //Add or remove favorite and change the display of the button
 function handleFavoriteClick(evt) {
-    // console.log("storyList.stories=",)
-    //Create a variable favoritedStoryId with the id of the event listener
+    toggleFavorite(evt);
     let clickedStoryId = $(evt.target).parent().attr("id");
     const clickedStory = getStoryFromStoryId(clickedStoryId);
     
@@ -26,14 +25,33 @@ function handleFavoriteClick(evt) {
     //Event listener on the i's
     $allStoriesList.on("click", "i", handleFavoriteClick)
 
-    /**Get story instance from storyId */
-    function getStoryFromStoryId(storyId) {
-        // Loop through storyList
-        // For each object in that loop, compare story Ids
-        // If true, return story
-        for (let story of storyList.stories) {
-            if (story.storyId === storyId) {
-                return story;
-            }
-        }
+/** Favorites toggle */
+function toggleFavorite (evt){
+    $(evt.target).toggleClass("far");
+    $(evt.target).toggleClass("fas");
+}
+
+/** Edit stories to favorited stories in HTML*/
+//const favoriteStoryList = new StoryList (currentUser.favorites);
+function createFavoriteStoryList () {
+    let favoriteStories = currentUser.favorites;
+    for (let story of favoriteStories){
+        const $storyHTML= generateStoryMarkup(story);
+        $favoriteStoriesList.append($storyHTML.get());
     }
+}
+
+//currentUser.favorites has all stories we want to populate
+//loop through generateStoryMarkup and append to $favoriteStoriesList
+
+function navFavoriteClick(){
+    console.debug("handle favorite click");
+    hidePageComponents();
+    $favoriteStoriesList.empty();
+    createFavoriteStoryList();
+    $favoriteStoriesList.show()
+}
+
+/** Event lisener to unhide favorited stories list when 
+* "favorites" in nav bar is clicked */
+$navFavorites.on("click", navFavoriteClick);
