@@ -1,5 +1,5 @@
 "use strict";
-
+console.log("this is being run;");
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
 
 /******************************************************************************
@@ -88,18 +88,19 @@ class StoryList {
       url: `${BASE_URL}/stories`,
       method: "POST",
       data: { token: token, story: newStory }
-    })
+    });
+    console.log("response.data=",response.data);
 
-    const storyId = response.data.story.storyId;
-    const updatedAt = response.data.story.updatedAt;
-    const username = response.data.story.username;
-    let { title, author, url } = newStory;
+    const story = await new Story(response.data.story);
+    // const { storyId, title, author, url, username, createdAt } = response.data;
+    // console.log("{ storyId, title, author, url, username, createdAt }=",{ storyId, title, author, url, username, createdAt })
+    // console.log("story=",story);
+    this.stories.unshift(story);
+    //console.log("stories=",this.stories);
+    currentUser.ownStories.unshift(story);
+    //console.log("ownStories=",currentUser.ownStories);
 
-    //currentUser ownStories gets updated
-    //this.stories gets updated
-
-    return new Story({ storyId, title, author, url, username, updatedAt });
-    // CAN PUT IN JUST RESPONSE.DATA INSIDE STORY
+    return story;
   }
 }
 

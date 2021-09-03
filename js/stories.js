@@ -58,16 +58,21 @@ function putStoriesOnPage() {
 
 // Event listener for form submission
 
-async function addNewStoryToPage(evt){
+async function addNewStoryToPage(evt) {
   evt.preventDefault();
-  const author =$("#new-author").val();
-  const title =$("#new-title").val();
-  const url =$("#new-url").val();
-  const newStory = {author, title, url};
-  const response = await storyList.addStory(currentUser,newStory);
+  const author = $("#new-author").val();
+  const title = $("#new-title").val();
+  const url = $("#new-url").val();
+  if (!author || !title || !url) {
+    return;
+  }
+  const newStory = { author, title, url };
+  const response = await storyList.addStory(currentUser, newStory);
+  const $story = generateStoryMarkup(response);
+  $allStoriesList.prepend($story.get());
   //refactor here, dont call getStories and putStoriesOnPage --> can use generateStoryMarkup and prepend
-  storyList = await StoryList.getStories();
-  putStoriesOnPage();
+  // storyList = await StoryList.getStories();
+  // putStoriesOnPage();
 }
 
 $addStoryForm.on("submit", addNewStoryToPage);
