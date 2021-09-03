@@ -91,7 +91,7 @@ class StoryList {
     });
     console.log("response.data=",response.data);
 
-    const story = await new Story(response.data.story);
+    const story = new Story(response.data.story);
     // const { storyId, title, author, url, username, createdAt } = response.data;
     // console.log("{ storyId, title, author, url, username, createdAt }=",{ storyId, title, author, url, username, createdAt })
     // console.log("story=",story);
@@ -234,6 +234,8 @@ class User {
       data: {token: currentUser.loginToken}
     });
     this.favorites.unshift(story);
+    
+    console.log("favorites after adding=",this.favorites);
   }
 
   /** Let user un-favorite a story, send DELETE request to API and remove from favorites array */
@@ -249,6 +251,7 @@ class User {
     for (let i = 0; i < this.favorites.length; i++) {
       if (this.favorites[i].storyId === story.storyId) {
         this.favorites.splice(i,1);
+        console.log("favorites after removing=",this.favorites);
       }
     }
   }
