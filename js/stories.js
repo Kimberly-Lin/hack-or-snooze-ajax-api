@@ -22,10 +22,16 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
+  let thumbsUpClass = "far";
+
+  if (currentUser) {
+    thumbsUpClass = isStoryInFavorites(story) ? "fas" : "far";
+  }
+
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <i class="far fa-thumbs-up hidden"></i>
+        <i class="${thumbsUpClass} fa-thumbs-up hidden"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -72,9 +78,7 @@ async function addNewStoryToPage(evt) {
   const response = await storyList.addStory(currentUser, newStory);
   const $story = generateStoryMarkup(response);
   $allStoriesList.prepend($story.get());
-  //refactor here, dont call getStories and putStoriesOnPage --> can use generateStoryMarkup and prepend
-  // storyList = await StoryList.getStories();
-  // putStoriesOnPage();
+  $("i").show();
 }
 
 $addStoryForm.on("submit", addNewStoryToPage);
@@ -85,8 +89,8 @@ function getStoryFromStoryId(storyId) {
   // For each object in that loop, compare story Ids
   // If true, return story
   for (let story of storyList.stories) {
-      if (story.storyId === storyId) {
-          return story;
-      }
+    if (story.storyId === storyId) {
+      return story;
+    }
   }
 }

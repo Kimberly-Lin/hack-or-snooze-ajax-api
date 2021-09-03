@@ -118,4 +118,5 @@ function updateUIOnUserLogin() {
   // $navFavorites.show();
 
   updateNavOnLogin();
+  putStoriesOnPage();
 }

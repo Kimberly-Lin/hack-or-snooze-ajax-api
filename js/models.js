@@ -1,5 +1,5 @@
 "use strict";
-console.log("this is being run;");
+//console.log("this is being run;");
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
 
 /******************************************************************************
@@ -89,7 +89,7 @@ class StoryList {
       method: "POST",
       data: { token: token, story: newStory }
     });
-    console.log("response.data=",response.data);
+    //console.log("response.data=",response.data);
 
     const story = new Story(response.data.story);
     // const { storyId, title, author, url, username, createdAt } = response.data;
@@ -233,9 +233,9 @@ class User {
       method: "POST",
       data: {token: currentUser.loginToken}
     });
-    this.favorites.unshift(story);
+    this.favorites.push(story);
     
-    console.log("favorites after adding=",this.favorites);
+    //console.log("favorites after adding=",this.favorites);
   }
 
   /** Let user un-favorite a story, send DELETE request to API and remove from favorites array */
@@ -251,7 +251,7 @@ class User {
     for (let i = 0; i < this.favorites.length; i++) {
       if (this.favorites[i].storyId === story.storyId) {
         this.favorites.splice(i,1);
-        console.log("favorites after removing=",this.favorites);
+        //console.log("favorites after removing=",this.favorites);
       }
     }
   }
