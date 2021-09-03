@@ -219,10 +219,13 @@ class User {
       return null;
     }
   }
-  /** Let user favorite story, send request to API and prepend to favorite array*/
+  /** Let user favorite story, send POST request to API and prepend to favorites array*/
+  
+  //Pseudo-code: 
   // Get storyId from favorited story(argument)
   // Post to "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId" using username and storyId need token
   // Prepend to this.favorites array
+  
   async addFavorite(story){
     // const storyId = story.storyId;
     await axios({
@@ -233,6 +236,20 @@ class User {
     this.favorites.unshift(story);
   }
 
-  /** Let user unfavorite a story, send request to API and remove from front of favorite array */
+  /** Let user un-favorite a story, send DELETE request to API and remove from favorites array */
 
+  async removeFavorite(story){
+
+    await axios({
+      url:`${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+      method: "DELETE",
+      data: {token: currentUser.loginToken}
+    });
+
+    for (let i = 0; i < this.favorites.length; i++) {
+      if (this.favorites[i].storyId === story.storyId) {
+        this.favorites.splice(i,1);
+      }
+    }
+  }
 }
