@@ -24,8 +24,11 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    let hostName = this.url.split("/")[2].split(".");
+    hostName = hostName[0]=== "www" 
+      ? `${hostName[1]}.${hostName[2]}`
+      : `${hostName[0]}.${hostName[1]}`; 
+    return hostName;
   }
 }
 
@@ -76,7 +79,6 @@ class StoryList {
   //Function that handles submission of new story - return the variables user and newStory = {title,author,url}
 
   async addStory(currentUser, newStory) {
-    // UNIMPLEMENTED: complete this function!
     // We're getting 'user' from variable currentUser
     // We're getting the obj keys and value from the event listener ''
     // Doing a POST request to BASE_URL
@@ -93,7 +95,11 @@ class StoryList {
     const username = response.data.story.username;
     let { title, author, url } = newStory;
 
+    //currentUser ownStories gets updated
+    //this.stories gets updated
+
     return new Story({ storyId, title, author, url, username, updatedAt });
+    // CAN PUT IN JUST RESPONSE.DATA INSIDE STORY
   }
 }
 

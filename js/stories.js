@@ -60,11 +60,12 @@ function putStoriesOnPage() {
 
 async function addNewStoryToPage(evt){
   evt.preventDefault();
-  let author =$("input[name='new-author']").val();
-  let title =$("input[name='new-title']").val();
-  let url =$("input[name='new-url']").val();
-  let newStory = {author, title, url};
-  await storyList.addStory(currentUser,newStory);
+  const author =$("#new-author").val();
+  const title =$("#new-title").val();
+  const url =$("#new-url").val();
+  const newStory = {author, title, url};
+  const response = await storyList.addStory(currentUser,newStory);
+  //refactor here, dont call getStories and putStoriesOnPage --> can use generateStoryMarkup and prepend
   storyList = await StoryList.getStories();
   putStoriesOnPage();
 }

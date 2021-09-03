@@ -36,11 +36,11 @@ function updateNavOnLogin() {
 }
 
 /** Show story submit form on click on "submit" */
-function navSubmit(evt) {
+function navSubmitClick(evt) {
   console.debug("navSubmit", evt);
   console.log("navstorysubmit")
   $addStoryForm.show();
 }
 
-$navSubmit.on("click", navSubmit);
+$navSubmit.on("click", navSubmitClick);
 
