@@ -219,4 +219,20 @@ class User {
       return null;
     }
   }
+  /** Let user favorite story, send request to API and prepend to favorite array*/
+  // Get storyId from favorited story(argument)
+  // Post to "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId" using username and storyId need token
+  // Prepend to this.favorites array
+  async addFavorite(story){
+    // const storyId = story.storyId;
+    await axios({
+      url: `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+      method: "POST",
+      data: {token: currentUser.loginToken}
+    });
+    this.favorites.unshift(story);
+  }
+
+  /** Let user unfavorite a story, send request to API and remove from front of favorite array */
+
 }
