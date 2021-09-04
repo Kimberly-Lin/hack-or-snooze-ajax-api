@@ -31,6 +31,7 @@ class Story {
     return hostName;
   }
 }
+//ToDo: Take a look at solution to see an alternative method to do this.
 
 
 /******************************************************************************
@@ -248,6 +249,7 @@ class User {
       data: {token: currentUser.loginToken}
     });
 
+    //Code Review: Refactor to use filter. Also avoids mutating, which generally is discouraged
     for (let i = 0; i < this.favorites.length; i++) {
       if (this.favorites[i].storyId === story.storyId) {
         this.favorites.splice(i,1);

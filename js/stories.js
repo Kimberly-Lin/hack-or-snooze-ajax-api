@@ -25,7 +25,7 @@ function generateStoryMarkup(story) {
   let thumbsUpClass = "far";
 
   if (currentUser) {
-    thumbsUpClass = isStoryInFavorites(story) ? "fas" : "far";
+    thumbsUpClass = isStoryInFavorites(story) ? "fas" : thumbsUpClass;
   }
 
   const hostName = story.getHostName();
@@ -54,7 +54,7 @@ function putStoriesOnPage() {
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
   }
-
+//Code Review: Design could be refactored so there's no i.show everywhere
   $allStoriesList.show();
   if (currentUser) $("i").show();
 }
@@ -83,6 +83,7 @@ async function addNewStoryToPage(evt) {
 
 $addStoryForm.on("submit", addNewStoryToPage);
 
+//Code Review: Refactor to use method find.
 /**Get story instance from storyId */
 function getStoryFromStoryId(storyId) {
   // Loop through storyList

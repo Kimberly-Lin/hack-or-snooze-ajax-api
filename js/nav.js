@@ -52,6 +52,7 @@ $navSubmit.on("click", navSubmitClick);
 
 /** Handles click on Favorite link in Navbar */
 
+//Code Review: Calling favoriteStoryList should include $("i")
 function navFavoriteClick() {
   //console.debug("handle favorite click");
   hidePageComponents();
